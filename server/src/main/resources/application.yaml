@@ -1,0 +1,16 @@
+server:
+  port: 3000
+spring:
+  application:
+    name: alarm-clock-server
+  profiles:
+    active: dev
+mybatis-plus:
+  # 别名包扫描（实体类所在包）
+  type-aliases-package: com.entity
+  # mapper.xml位置（如果你写xml sql）
+  # mapper-locations: classpath:mapper/*.xml
+  # 下划线自动转驼峰
+  configuration:
+    map-underscore-to-camel-case: true
+
