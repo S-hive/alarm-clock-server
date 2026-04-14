@@ -23,6 +23,7 @@ public class UserController {
      * @param userDTO
      * @return
      */
+    @CrossOrigin
     @PostMapping("/login")
     public Result userLogin(@RequestBody UserDTO userDTO) {
         User user = userService.selectUser(userDTO);
@@ -38,7 +39,7 @@ public class UserController {
      * @param userDTO
      * @return
      */
-    @RequestMapping("/signUp")
+    @PostMapping("/signUp")
     public Result userSignUp(@RequestBody UserDTO userDTO) {
         //查找用户是否已经登录过
         User user = userService.selectUser(userDTO);
