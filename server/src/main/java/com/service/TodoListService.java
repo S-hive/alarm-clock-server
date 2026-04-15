@@ -20,4 +20,11 @@ public interface TodoListService {
      * @return
      */
     public Integer createTodoListByPhone(TodoListDTO todoListDTO);
+
+    /**
+     * 修改定时列表
+     * @param todoListDTO
+     * @return
+     */
+    public Integer updateTodoListById(TodoListDTO todoListDTO);
 }

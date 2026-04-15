@@ -11,10 +11,19 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TodoListDTO implements Serializable {
+    private Integer id;
     private String phone;
     private String name;
     private Integer time;
     private String type;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getPhone() {
         return phone;
