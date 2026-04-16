@@ -2,13 +2,15 @@ package com.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dto.TodoListDTO;
 import com.entity.TodoList;
 import com.mapper.TodoListMapper;
+import com.result.PageResult;
 import com.service.TodoListService;
-import com.vo.TodoListVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,12 +22,12 @@ public class TodoListServiceImpl implements TodoListService {
     TodoListMapper todoListMapper;
 
     @Override
-    public TodoListVO selectTodoListByPbone(String phone) {
+    public PageResult selectTodoListByPbone(String phone, Integer page) {
         QueryWrapper<TodoList> todoListQueryWrapper = new QueryWrapper<>();
         todoListQueryWrapper.eq("phone", phone)
-                .orderByDesc("update_time");
-        List<TodoList> todoLists = todoListMapper.selectList(todoListQueryWrapper);
-        return new TodoListVO(todoLists);
+                .orderByDesc("update_time");             /*当前页码, 10页一组, 开启查询总数*/
+        Page<TodoList> todoListPage = todoListMapper.selectPage(new Page<>(page, 10, true), todoListQueryWrapper);
+        return new PageResult( todoListPage.getTotal(), todoListPage.getPages(), todoListPage.getRecords());
 
     }
 

@@ -1,7 +1,7 @@
 package com.service;
 
 import com.dto.TodoListDTO;
-import com.vo.TodoListVO;
+import com.result.PageResult;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -9,10 +9,12 @@ public interface TodoListService {
 
     /**
      * 通过电话号码查询所有定时任务
+     *
      * @param phone
+     * @param page
      * @return
      */
-    public TodoListVO selectTodoListByPbone(String phone);
+    PageResult selectTodoListByPbone(String phone, Integer page);
 
     /**
      * 创建定时列表

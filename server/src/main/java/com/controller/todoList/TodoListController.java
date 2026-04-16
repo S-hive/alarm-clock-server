@@ -2,6 +2,7 @@ package com.controller.todoList;
 
 import com.constant.MessageConstant;
 import com.dto.TodoListDTO;
+import com.result.PageResult;
 import com.result.Result;
 import com.service.TodoListService;
 import com.vo.TodoListVO;
@@ -19,12 +20,12 @@ public class TodoListController {
     TodoListService todoListService;
 
     @GetMapping("/select")
-    public Result<TodoListVO> selectTodoListByPhone(String phone) {
-        TodoListVO todoListVO = todoListService.selectTodoListByPbone(phone);
-        if (todoListVO.getRecords().isEmpty()) {
+    public Result<PageResult> selectTodoListByPhone(String phone, @RequestParam(defaultValue = "1") Integer page) {
+        PageResult pageResult = todoListService.selectTodoListByPbone(phone, page);
+        if (pageResult.getRecordes().isEmpty()) {
             return Result.error(MessageConstant.TODOLIST_MISSING);
         }
-        return Result.success(todoListVO);
+        return Result.success(pageResult);
     }
 
     @PostMapping("/create")
