@@ -23,7 +23,6 @@ public class UserController {
      * @param userDTO
      * @return
      */
-    @CrossOrigin
     @PostMapping("/login")
     public Result userLogin(@RequestBody UserDTO userDTO) {
         User user = userService.selectUser(userDTO);
