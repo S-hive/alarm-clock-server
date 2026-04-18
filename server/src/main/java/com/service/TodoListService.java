@@ -29,4 +29,11 @@ public interface TodoListService {
      * @return
      */
     public Integer updateTodoListById(TodoListDTO todoListDTO);
+
+    /**
+     * 删除定时列表
+     * @param id
+     * @return
+     */
+    Integer deleteTodoListById(Integer id);
 }

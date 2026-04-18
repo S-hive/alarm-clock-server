@@ -45,4 +45,13 @@ public class TodoListController {
         }
         return Result.success();
     }
+
+    @DeleteMapping("/delete")
+    public Result deleteTodoListById(Integer id) {
+        Integer change = todoListService.deleteTodoListById(id);
+        if (change > 0) {
+            return Result.success();
+        }
+        return Result.error(MessageConstant.DELETE_TODOLIST_ERROR);
+    }
 }

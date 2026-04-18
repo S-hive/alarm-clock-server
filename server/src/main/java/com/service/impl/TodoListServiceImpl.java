@@ -61,4 +61,15 @@ public class TodoListServiceImpl implements TodoListService {
         int update = todoListMapper.update(todoList, lambdaQueryWrapper);
         return update;
     }
+
+    /**
+     * 删除定时列表
+     * @param id
+     * @return
+     */
+    @Override
+    public Integer deleteTodoListById(Integer id) {
+        return todoListMapper.deleteById(id);
+    }
+
 }
