@@ -1,15 +1,19 @@
 package com.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.dto.DailyDataDTO;
 import com.entity.DailyData;
 import com.mapper.DailyDataMapper;
 import com.service.DailyDataService;
+import com.vo.DailyDataListVO;
+import com.vo.DailyDataLoginVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class DailyDataServiceImpl implements DailyDataService {
@@ -64,14 +68,16 @@ public class DailyDataServiceImpl implements DailyDataService {
         return dailyDataMapper.update(dailyData, updateWrapper);
     }
 
+
     /**
      * 登录时每日数据操作
      *
      * @param date
      * @param phone
+     * @return
      */
     @Override
-    public void loginDailyData(LocalDate date, String phone) {
+    public DailyDataLoginVO loginDailyData(LocalDate date, String phone) {
         QueryWrapper<DailyData> wrapper = new QueryWrapper<>();
         wrapper.eq("date", date).eq("phone", phone);
         DailyData dailyData = dailyDataMapper.selectOne(wrapper);
@@ -81,6 +87,27 @@ public class DailyDataServiceImpl implements DailyDataService {
                     .focusDuration(0)
                     .wordCount(0).build();
             dailyDataMapper.insert(nweDailyData);
+            return new DailyDataLoginVO(0,0);
+        } else {
+            return new DailyDataLoginVO(dailyData.getFocusDuration(), dailyData.getWordCount());
         }
+    }
+
+    /**
+     * 查询今天前3个月内的日期数据
+     * @param phone
+     * @return
+     */
+    @Override
+    public DailyDataListVO DailyDataList(String phone) {
+        LocalDate start = LocalDate.now().minusMonths(3);
+        LocalDate end = LocalDate.now();
+
+        LambdaQueryWrapper<DailyData> wrapper = new LambdaQueryWrapper<>();
+        wrapper.between(DailyData::getDate, start, end)
+                .orderByAsc(DailyData::getDate);
+
+        List<DailyData> result = dailyDataMapper.selectList(wrapper);
+        return new DailyDataListVO(result);
     }
 }

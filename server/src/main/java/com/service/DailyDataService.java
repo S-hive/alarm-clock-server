@@ -2,6 +2,8 @@ package com.service;
 
 import com.dto.DailyDataDTO;
 import com.entity.DailyData;
+import com.vo.DailyDataListVO;
+import com.vo.DailyDataLoginVO;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -15,5 +17,7 @@ public interface DailyDataService {
 
     Integer updateDailyData(DailyDataDTO dailyDataDTO);
 
-    void loginDailyData(LocalDate date, String phone);
+    DailyDataLoginVO loginDailyData(LocalDate date, String phone);
+
+    DailyDataListVO DailyDataList(String phone);
 }

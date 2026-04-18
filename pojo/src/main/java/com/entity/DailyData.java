@@ -21,8 +21,8 @@ public class DailyData {
     private LocalDate date;
     private float focusDuration;
     private Integer wordCount;
-    private LocalDateTime createdTime;
-    private LocalDateTime updatedTime;
+/*    private LocalDateTime createdTime;
+    private LocalDateTime updatedTime;*/
     private String phone;
 
 }
